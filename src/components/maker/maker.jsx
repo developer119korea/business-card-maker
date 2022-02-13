@@ -17,7 +17,7 @@ const Maker = ({ authService }) => {
       email: '홍길동@korea.com',
       message: '내돈내산',
       fileName: "얍",
-      fileURL: null
+      fileURL: '',
     },
     {
       id: 2,
@@ -28,7 +28,7 @@ const Maker = ({ authService }) => {
       email: '홍길동@korea.com',
       message: '내돈내산',
       fileName: "얍",
-      fileURL: null
+      fileURL: ''
     },
     {
       id: 3,
@@ -44,6 +44,15 @@ const Maker = ({ authService }) => {
   ]);
 
   const navigate = useNavigate();
+
+  const onAddCard = (card) => {
+    console.log(`${JSON.stringify(card)}`);
+    card.id = cards.length + 1;
+    console.log(`${JSON.stringify(card)}`);
+
+    setCards([...cards, card]);
+  };
+
   const onLogout = () => {
     authService.logout();
   };
@@ -60,7 +69,7 @@ const Maker = ({ authService }) => {
     <section className={styles.maker} >
       <Header onLogout={onLogout} />
       <div className={styles.container}>
-        <Editor cards={cards} />
+        <Editor cards={cards} onAddCard={onAddCard} />
         <Preview cards={cards} />
       </div>
       <Footer />
