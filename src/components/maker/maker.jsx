@@ -60,11 +60,31 @@ const Maker = ({ authService }) => {
     setCards([...cards, card]);
   };
 
+  const editCard = card => {
+    let newCards = cards.filter(item => item.id !== card.id);
+    newCards = [...newCards, card];
+    newCards = newCards.sort((a, b) => {
+      if (a.id < b.id) {
+        return -1;
+      }
+      if (a.id > b.id) {
+        return 1;
+      }
+      return 0;
+    })
+    setCards(newCards);
+  }
+
+  const deleteCard = id => {
+    const newCards = cards.filter(item => item.id !== id);
+    setCards(newCards);
+  }
+
   return (
     <section className={styles.maker} >
       <Header onLogout={onLogout} />
       <div className={styles.container}>
-        <Editor cards={cards} onAddCard={addCard} />
+        <Editor cards={cards} onAddCard={addCard} onEditCard={editCard} onDeleteCard={deleteCard} />
         <Preview cards={cards} />
       </div>
       <Footer />
