@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo } from 'react';
 import Button from '../button/button';
 import styles from './card_edit_form.module.css';
 
-const CardEditForm = ({ FileInput, card, updateCard, deleteCard }) => {
+const CardEditForm = memo(({ FileInput, card, updateCard, deleteCard }) => {
   const { name, company, title, email, message, theme, fileName, fileURL } = card;
   const formRef = useRef();
   const nameRef = useRef();
@@ -18,7 +18,7 @@ const CardEditForm = ({ FileInput, card, updateCard, deleteCard }) => {
       fileName: file.name,
       fileURL: file.url
     });
-  }
+  };
 
   const onChange = (event) => {
     if (event.currentTarget == null) {
@@ -29,7 +29,7 @@ const CardEditForm = ({ FileInput, card, updateCard, deleteCard }) => {
       ...card,
       [event.currentTarget.name]: event.currentTarget.value,
     });
-  }
+  };
 
   const onSubmit = () => {
     deleteCard(card);
@@ -53,6 +53,6 @@ const CardEditForm = ({ FileInput, card, updateCard, deleteCard }) => {
       <Button name='Delete' onClick={onSubmit} />
     </form >
   );
-}
+});
 
 export default CardEditForm;
